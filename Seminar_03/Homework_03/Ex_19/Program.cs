@@ -1,7 +1,6 @@
 ﻿//Программа принимает на вход пятизначное число
 //и проверяет, является ли оно палиндромом.
 
-// проверить, является ли 5-значное число палиндромом
 Console.Clear();
 int userNum;
 
@@ -26,15 +25,34 @@ string answer = null;   // переменная для ответа, без ин
 // цикл для проверки равенства первой и последней цифр
 for (int i = 0; i < 2; i++)   // т.к. нужно всего 2 прогона
 {
-    if (Convert.ToInt32(userNumCopy / Math.Pow(10, digitsNum - 1)) == userNumCopy % 10) answer = "да";
+    if (GetFirstDigit(userNumCopy, digitsNum) == GetLastDigit(userNumCopy)) answer = "да";
     else answer = "нет";
 
     if (answer == "нет") break;
     else 
     {
-        userNumCopy = Convert.ToInt32((userNumCopy % Math.Pow(10, digitsNum - 1)) / 10);   // 12345 -> 2345 -> 234
+        userNumCopy = GetThreeDigitNum(userNumCopy, digitsNum);   // 12345 -> 2345 -> 234
         digitsNum -= 2;  // теперь кол-во разрядов - 3
     }
 }
 
 Console.WriteLine($"{userNum} -> {answer}");
+
+//-------Методы-------
+// Метод для вычисления первой цифры числа
+static int GetFirstDigit(int num, int digits)
+{
+    return Convert.ToInt32(num / Math.Pow(10, digits - 1));
+}
+
+// Метод для вычисления последней цифры числа
+static int GetLastDigit(int num)
+{
+    return num % 10;
+}
+
+// Метод для приведения 5-значного числа к 3-значному
+static int GetThreeDigitNum(int num, int digits)
+{
+    return Convert.ToInt32((num % Math.Pow(10, digits - 1)) / 10);
+}
