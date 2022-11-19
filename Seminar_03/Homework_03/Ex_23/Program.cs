@@ -17,17 +17,23 @@ catch(Exception exc)
 }
 
 int i = 1;   // переменная-счетчик
-double cube;   // переменная для результата вычислений
 
 Console.Write($"{userNum} -> ");   // начало строки вывода
 
 // цикл для пошагового вычисления кубов
 while (i < userNum)
 {
-    cube = Math.Pow(i, 3);
-    Console.Write($"{cube}, ");
+    CubeCalculation(i);
+    Console.Write(", ");
     i ++;
 }
 
-cube = Math.Pow(i, 3);
-Console.Write(cube);   // Последний куб выводим отдельно без запятой
+CubeCalculation(i);   // Последний куб выводим отдельно без запятой
+
+// Метод для вычисления и вывода куба числа
+static void CubeCalculation(int num)
+{
+    double cube = Math.Pow(num, 3);
+    Console.Write($"{cube}");
+    return;
+}
