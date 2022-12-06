@@ -54,7 +54,7 @@ void PrintArray(int[,] inArray)
 }
 
 
-// метод 
+// метод для поиска минимального элемента
 int[] FindMinInArray(int[,] array)
 {
     int min = array[0, 0];
@@ -74,6 +74,7 @@ int[] FindMinInArray(int[,] array)
     return minCoord;
 }
 
+// метод для создания матрицы без строки и столбца
 int [,] DeleteRowCol(int[,] array, int[] coord)
 {
     int[,] newArray = new int[array.GetLength(0) - 1, array.GetLength(1) - 1];

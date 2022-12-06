@@ -55,7 +55,7 @@ void PrintArray(int[,] inArray)
 }
 
 
-// метод 
+// метод для поворота матрицы на 90 градусов по часовой
 int[,] TransposeArray(int[,] array)
 {
     int[,] newArray = new int[array.GetLength(1), array.GetLength(0)];

@@ -52,7 +52,7 @@ void PrintArray(int[,] inArray)
 }
 
 
-// метод 
+// метод для подсчета частоты возникновения элемента
 int[,] CountSymbols(int[,] array)
 {
     int[,] newArray = new int[10, 2];
@@ -71,6 +71,7 @@ int[,] CountSymbols(int[,] array)
     return newArray;
 }
 
+// метод для вывода массива без строк, в которых столбец = 0
 void PrintCountArray(int[,] inArray)
 {
     for (int i = 0; i < 10; i++)

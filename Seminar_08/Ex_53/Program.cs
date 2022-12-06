@@ -53,7 +53,7 @@ void PrintArray(int[,] inArray)
 }
 
 
-// метод 
+// метод для обмена двух строк местами
 void SwapLinesInArray(int[,] array)
 {
     int temp;
