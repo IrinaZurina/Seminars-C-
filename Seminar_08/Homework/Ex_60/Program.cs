@@ -66,9 +66,11 @@ void PrintArray(int[,,] inArray)
         {
             for (int j = 0; j < inArray.GetLength(1); j++)
             {
-                Console.WriteLine($"[{i} {j} {k}] -> {inArray[i, j, k]}");
+                Console.Write($"{inArray[i, j, k]} ({i},{j},{k})  ");
             }
+            Console.WriteLine();
         }
+        Console.WriteLine();
     }
 }
                 
