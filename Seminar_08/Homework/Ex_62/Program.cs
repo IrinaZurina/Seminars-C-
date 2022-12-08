@@ -1,63 +1,48 @@
-﻿// Заполните спирально массив 4 на 4.
+﻿// Заполните спирально массив 4 на 4. 
+// Задача решена для массива ЛЮБОГО размера
 Console.Clear();
 
 int row = GetNumberFromUser("Введите количество строк: ","Ошибка ввода!");
 int col = GetNumberFromUser("Введите количество столбцов: ","Ошибка ввода!");
-int[,] matrix = GetSpiralArray(row, col);
+int[,] matrix = new int[row, col];
+if (row == 1 && col == 1) matrix[0,0] = 1;   // учитываем исключительный случай матрицы 1х1
+else matrix = GetSpiralArray(row, col);
 PrintArray(matrix);
 
-// метод для заполнения массива
-int[,] GetSpiralArray(int m, int n)
-{
-    int[,] spiralArray = new int[m, n];
-    int rowPos = 0;
-    int colPos = 0;
-    int rowStep = 1;
-    int colStep = 1;
-    int num = 1;
-    while (num <= m * n) 
-    {
-        while (colPos < spiralArray.GetLength(1) && colPos >= 0)
-        {
-            if (spiralArray[rowPos, colPos] == 0)
-            {
-                spiralArray[rowPos, colPos] = num;
-                num++;    
-            }
-            /* else 
-            { 
-                colPos -= colStep;
-                break;
-            } */
-            
-            if (num > m * n 
-                || spiralArray[rowPos, colPos + colStep] != 0 
-                || colPos + colStep >= spiralArray.GetLength(1)
-                || colPos + colStep < 0) 
-                break;
-            colPos += colStep;
-        }
 
-        while (rowPos < spiralArray.GetLength(0) && rowPos >= 0)
+// метод для заполнения массива
+int[,] GetSpiralArray(int row, int col)
+{
+    int[,] spiralArray = new int[row, col];
+    int i = 0;   // стратовая позиция рядов
+    int j = 0;   // стратовая позиция столбцов
+    int step = 1;   // шаг для передвижения по матрице
+    int num = 1;   // число, с которого начинается заполнение
+    
+    while (num <= row * col) 
+    {
+        while (j + step >= 0 && j + step < col)
         {
-            if (spiralArray[rowPos, colPos] == 0)
+            if (spiralArray[i, j] == 0)
             {
-                spiralArray[rowPos, colPos] = num;
-                num++;    
-            }
-            else 
-            { 
-                rowPos -= rowStep;
-                break;
-            }
-            rowPos += rowStep;
-            if (num > spiralArray.GetLength(0) * spiralArray.GetLength(1) || spiralArray[rowPos + rowStep, colPos] != 0) break;
+                spiralArray[i, j] = num;
+                num++; 
+            }         
+            if (num > row * col ||  spiralArray[i, j + step] != 0) break;   // условия для досрочного выхода из цикла - следующая ячейка заполнена или закончились пустые ячейки
+            j += step;
         }
-        rowPos -= rowStep;
-        rowStep *= -1;
-        colStep *= -1;
-    PrintArray(spiralArray);
-    Console.WriteLine();
+        
+        while (i + step >= 0 && i + step < row)
+        {           
+            if (spiralArray[i, j] == 0)
+            {
+                spiralArray[i, j] = num;
+                num++;
+            }          
+            if (num > row * col || spiralArray[i + step, j] != 0) break;   // условия для досрочного выхода из цикла - следующая ячейка заполнена или закончились пустые ячейки                
+            i += step;
+        }
+        step *= -1;   // в конце итерации внешнего цикла меняем напраление движения
     }    
     return spiralArray;
 }
