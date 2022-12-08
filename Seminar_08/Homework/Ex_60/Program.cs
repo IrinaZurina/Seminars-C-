@@ -27,48 +27,33 @@ int GetNumberFromUser(string message, string errorMessage)
 int[, ,] GetArray(int x, int y, int z)
 {
     int[, ,] result = new int[x, y, z];   // трехмерный массив для заполнения
-    int[] newNumbers = new int[1];   // массив для запоминания эл-тов, которые уже внесли
-    // int count = 0;   // счетчик элементов в массиве elements, по этому индексу будут добавляться новые элементы для отслеживания
+    int[] newNumbers = new int[x * y * z];   // массив для запоминания эл-тов, которые уже внесли
+    int count = 0;   // счетчик элементов в массиве elements, по этому индексу будут добавляться новые элементы для отслеживания
     for (int k = 0; k < z; k++)   // внешний цикл на третье измерение, чтобы послойно заполнять двумерную матрицу
     {
         for (int i = 0; i < x; i++)
         {
             for (int j = 0; j < y; j++)
             {
-                result[x, y, z] = AddNewElement(result[x, y, z], newNumbers, 10, 99);
-                //newNumbers[count] = result[x, y, z];
-                //count++;
+                result[i, j, k] = AddNewElement(result[i, j, k], newNumbers, count, 10, 99);
+                newNumbers[count] = result[i, j, k];
+                count++;
             }
         }
     }
     return result;
 }
 
-// метод для проверки наличия элемента в массиве
-bool FindElement(int element, int[] array)
-{
-    bool flag = true;
-    for (int i = 0; i < array.Length; i++)
-    {
-        if (array[i] != element) flag = true;
-        else 
-        {
-            flag = false;
-            break;
-        }
-    }
-    return flag;
-}
-
-// метод для записи в элемент массива неповторяющегося чила
-int AddNewElement(int element, int[] array, int minValue, int maxValue)
+// метод для записи в элемент массива неповторяющегося числа
+int AddNewElement(int element, int[] array, int count, int minValue, int maxValue)
 {
     element = new Random().Next(minValue, maxValue + 1);   // генерируем элемент массива
-    if (FindElement(element, array))   // если метод FindElement возвращает true, то значит элемент новый и он остается в матрице
-        {
-            array.Append(element);   // добавляем элемент в массив уникальных элементов
-        }
-    else element = AddNewElement(element, array, minValue, maxValue);
+    if (array.Contains(element)) element = AddNewElement(element, array, count, minValue, maxValue); 
+    else 
+    {
+        array[count] = element;   // добавляем элемент в массив уникальных элементов
+        count++;
+    }
     return element;            
 }
 
@@ -81,11 +66,9 @@ void PrintArray(int[,,] inArray)
         {
             for (int j = 0; j < inArray.GetLength(1); j++)
             {
-                Console.Write($"{inArray[i, j, k]} ");
+                Console.WriteLine($"[{i} {j} {k}] -> {inArray[i, j, k]}");
             }
-            Console.WriteLine();
         }
-        Console.WriteLine();
     }
 }
                 
